@@ -25,3 +25,5 @@ handleChange = (props) => {
   ...
 }
 {this.state.*} *에 boolean 데이터같은것이 들어갈 경우엔 toString()을 추가해줘야 정상적으로 출력이된다.
+
+fetch시 Json화 시키면 작업이 좀 더 편해진다!

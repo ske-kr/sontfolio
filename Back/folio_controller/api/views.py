@@ -29,7 +29,7 @@ class GetProject(APIView):
             return Response({'Project Not Found': 'Invalid project code.'},status=status.HTTP_404_NOT_FOUND)
         
         return Response({'Bad Request': 'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
 class CreateView(APIView):
     serializer_class = CreateProjectSerializer
 
@@ -57,3 +57,24 @@ class CreateView(APIView):
                 NewProject.save()
                 return Response(ProjectSerializer(NewProject).data, status=status.HTTP_201_CREATED)
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class JoinProject(APIView):
+    lookup_url_param = 'code'
+
+    def post(self,request,format=None):
+        ## session은 내가구현한것에선 활용하지 않음(로그인이 필요없는 시스템)
+        if not self.request.session.exists(self.request.session.session_key):
+            #user가 activate session을 가지고있는지 체크
+            self.request.session.create()
+        
+        code = request.data.get('code')
+        newName=request.data.get('name')
+        if code != None:
+            getProject= project.objects.filter(code=code)
+            if len(getProject)>0:
+                Project_result=getProject[0]
+                Project_result.team=Project_result.team+", "+newName
+                Project_result.save(update_fields=['team'])
+                return Response({'message':'Project Joined'},status=status.HTTP_200_OK)
+            return Response({"Bad request" : "Invalid Project Code"},status=status.HTTP_400_BAD_REQUEST)
+        return Response({"Bad request" : "Invalid post data, did not find a code key"},status=status.HTTP_404_NOT_FOUND)

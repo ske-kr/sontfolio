@@ -4,5 +4,6 @@ urlpatterns = [
     path('',index),
     path('create', index),
     path('list',index),
-    path('project/<str:projectCode>',index)
+    path('project/<str:projectCode>',index),
+    path('join',index)
 ]
