@@ -24,3 +24,4 @@ this.handleChange = this.handleChange.bind(this);
 handleChange = (props) => {
   ...
 }
+{this.state.*} *에 boolean 데이터같은것이 들어갈 경우엔 toString()을 추가해줘야 정상적으로 출력이된다.

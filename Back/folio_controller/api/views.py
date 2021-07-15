@@ -15,6 +15,21 @@ class projectView(generics.ListAPIView):
     queryset=project.objects.all()
     serializer_class = ProjectSerializer
 
+class GetProject(APIView):
+    serializer_class = ProjectSerializer
+    lookup_url_param = 'code'
+
+    def get(self,request,format=None):
+        code = request.GET.get(self.lookup_url_param)
+        if code != None:
+            getproject=project.objects.filter(code=code)
+            if len(getproject) >0:
+                data=ProjectSerializer(getproject[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Project Not Found': 'Invalid project code.'},status=status.HTTP_404_NOT_FOUND)
+        
+        return Response({'Bad Request': 'Code parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+        
 class CreateView(APIView):
     serializer_class = CreateProjectSerializer
 

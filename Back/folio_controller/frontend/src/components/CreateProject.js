@@ -66,7 +66,7 @@ export default class CreateProject extends Component{
         };
         fetch('/api/create',requestOptions).then((response)=>
             response.json()
-        ).then((data)=>console.log(data));
+        ).then((data)=>this.props.history.push('/project/' + data.code));
     }
     render(){
         return <Grid container spacing={1}>

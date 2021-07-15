@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import CreateProject from "./CreateProject";
 import ProjectList from "./ProjectList";
 import { BrowserRouter as Router, Switch, Route,Link,Redirect } from "react-router-dom"
-
+import Project from "./Project";
 
 export default class HomePage extends Component{
     constructor(props){
@@ -19,6 +19,7 @@ export default class HomePage extends Component{
               </Route>
               <Route path="/list" component={ProjectList} />
               <Route path="/create" component={CreateProject} />
+              <Route path="/project/:projectCode" component={Project}/>
             </Switch>
           </Router>
         );

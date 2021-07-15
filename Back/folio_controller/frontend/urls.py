@@ -3,5 +3,6 @@ from .views import index
 urlpatterns = [
     path('',index),
     path('create', index),
-    path('list',index)
+    path('list',index),
+    path('project/<str:projectCode>',index)
 ]
