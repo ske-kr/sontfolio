@@ -14,8 +14,8 @@ def generate_unique_code():
 
 # Create your models here.
 class project(models.Model):
-    code=models.CharField(max_length=8,default="",unique=True)
-    name = models.CharField(max_length=20,default="",unique=True,null=False)
+    code=models.CharField(max_length=8,default=generate_unique_code,unique=True)
+    name = models.CharField(max_length=20,default="",null=False)
     # unique = automatically check uniqueness of name
     team = models.CharField(max_length=20,default="alone")
     keyword = models.CharField(max_length=20,default="",null=False)
