@@ -14,3 +14,13 @@
 - 1) install basic tools, webpack, babel,react-dom, material-ui/core
   2) webpack, babel settings
   3) rendering mechanisms - components to components
+
+
+# Javascript, react
+바인딩 방법
+방법1 - 생성자에서 바인딩 해주기
+this.handleChange = this.handleChange.bind(this);
+방법2 - 화살표 함수로 구현
+handleChange = (props) => {
+  ...
+}
