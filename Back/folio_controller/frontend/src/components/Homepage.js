@@ -24,7 +24,12 @@ export default class HomePage extends Component{
       });
       console.log(this.state.projectCode);
     }
-
+    
+    clearProjectcode(){
+      this.setState({
+        projectCode:null,
+      });
+    }
     renderHomePage(){
       return (
         <Grid contrainer spacing={3}>
@@ -62,7 +67,8 @@ export default class HomePage extends Component{
               />
               <Route path="/list" component={ProjectList} />
               <Route path="/create" component={CreateProject} />
-              <Route path="/project/:projectCode" component={Project}/>
+              <Route path="/project/:projectCode" 
+              component={Project}/>
               <Route path="/join" component={ProjectJoinPage}/>
             </Switch>
           </Router>

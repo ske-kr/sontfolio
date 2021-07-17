@@ -52,6 +52,7 @@ class CreateView(APIView):
                 room = queryset[0]
                 room.team=team
                 room.save(update_fields=['team'])
+                ##edit more options
                 return Response(ProjectSerializer(room).data, status=status.HTTP_200_OK)
             else:
                 NewProject=project(name=name,team=team,keyword=keyword,details=details)
@@ -82,7 +83,7 @@ class JoinProject(APIView):
 
 
 class UserInProject(APIView):
-    def get(self,request,format=None):
+    def post(self,request,format=None):
         if not self.request.session.exists(self.request.session.session_key):
             #user가 activate session을 가지고있는지 체크
             self.request.session.create()
@@ -93,3 +94,16 @@ class UserInProject(APIView):
         }
 
         return JsonResponse(data, status=status.HTTP_200_OK)
+
+class delProject(APIView):
+    lookup_url_param = 'code'
+    def get(self, request, format=None):
+        code = request.GET.get(self.lookup_url_param)
+        project_results = project.objects.filter(code=code)
+        if code==None:
+            return Response({"sad"},status=status.HTTP_402_PAYMENT_REQUIRED)
+        if len(project_results) > 0:
+            delproject = project_results[0]
+            delproject.delete()
+            return Response({'Successfully Deleted'},status=status.HTTP_200_OK)
+        return Response({'Bad Request': 'Code not found'}, status=status.HTTP_404_NOT_FOUND)
