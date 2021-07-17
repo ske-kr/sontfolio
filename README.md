@@ -14,6 +14,7 @@
 - 1) install basic tools, webpack, babel,react-dom, material-ui/core
   2) webpack, babel settings
   3) rendering mechanisms - components to components
+  4) componentDidMount - 이번에는 함수를 만들고 따로 구현하진 않았지만 session값을 비교해서 re-rendering해줌(예를들어 최근에 방을만들었으면 홈페이지로 이동시 해당 방으로 이동)
 
 
 # Javascript, react

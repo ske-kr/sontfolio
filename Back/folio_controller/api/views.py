@@ -6,6 +6,7 @@ from .serializers import ProjectSerializer,CreateProjectSerializer
 from .models import project
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -78,3 +79,17 @@ class JoinProject(APIView):
                 return Response({'message':'Project Joined'},status=status.HTTP_200_OK)
             return Response({"Bad request" : "Invalid Project Code"},status=status.HTTP_400_BAD_REQUEST)
         return Response({"Bad request" : "Invalid post data, did not find a code key"},status=status.HTTP_404_NOT_FOUND)
+
+
+class UserInProject(APIView):
+    def get(self,request,format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            #user가 activate session을 가지고있는지 체크
+            self.request.session.create()
+            #없다면 session create
+
+        data={
+            'code':self.request.session.get('code')
+        }
+
+        return JsonResponse(data, status=status.HTTP_200_OK)
