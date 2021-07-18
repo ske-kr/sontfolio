@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Grid,Button,Typography} from "@material-ui/core";
 import {Link} from "react-router-dom"
+import CreateProject from "./CreateProject";
 
 export default class Project extends Component{
     constructor(props){
@@ -41,7 +42,29 @@ export default class Project extends Component{
             showSettings:value,
         });
     }
-    
+    renderSettings=()=>{
+        return(
+        <Grid contrainer spacing={1}>
+            <Grid item xs={12} align="center">
+                <CreateProject 
+                update={true}
+                name={this.state.name}
+                team={this.state.team}
+                keyword={this.state.keyword}
+                details={this.state.details}
+                updateCallback={()=>{}}
+                />
+            </Grid>
+            <Grid item xs={12} align="center">
+                <Button variant="contained" color="secondary"
+                onClick={()=>this.updateShowSettings(false)}>
+                    Close
+                </Button>
+            </Grid>
+        </Grid>);
+    }
+
+
     renderSettingsButton() {
         return (
           <Grid item xs={12} align="center">
@@ -57,6 +80,10 @@ export default class Project extends Component{
       }
       
     render(){
+        if (this.state.showSettings) {
+            return this.renderSettings();
+        }
+
         return <Grid container spacing={1}>
             <Grid item xs={12} align="center">
                 <Typography variant="h4" component="h4">
