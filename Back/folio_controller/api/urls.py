@@ -1,6 +1,6 @@
 
 from django.urls import path,include
-from .views import projectView,CreateView,GetProject,JoinProject,UserInProject,delProject
+from .views import projectView,CreateView,GetProject,JoinProject,UserInProject,delProject,UpdateProject
 
 urlpatterns = [
     path('', projectView.as_view()),
@@ -9,5 +9,6 @@ urlpatterns = [
     path('join',JoinProject.as_view()),
     path('user-in-project',UserInProject.as_view()),
     path('del',delProject.as_view()),
+    path('update',UpdateProject.as_view()),
 
 ]

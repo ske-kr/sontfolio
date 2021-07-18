@@ -11,9 +11,12 @@ export default class Project extends Component{
             team:"",
             keyword:"",
             details:"",
+            showSettings:false,
         };
         this.projectCode=this.props.match.params.projectCode;
         this.getProjectDetails();
+        this.updateShowSettings = this.updateShowSettings.bind(this);
+        this.renderSettingsButton = this.renderSettingsButton.bind(this);
     }
     getProjectDetails(){
         fetch('/api/get' + '?code=' + this.projectCode).then((response)=> response.json())
@@ -33,6 +36,26 @@ export default class Project extends Component{
         });
       }
 
+    updateShowSettings(value){
+        this.setState({
+            showSettings:value,
+        });
+    }
+    
+    renderSettingsButton() {
+        return (
+          <Grid item xs={12} align="center">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => this.updateShowSettings(true)}
+            >
+              Settings
+            </Button>
+          </Grid>
+        );
+      }
+      
     render(){
         return <Grid container spacing={1}>
             <Grid item xs={12} align="center">
@@ -61,6 +84,7 @@ export default class Project extends Component{
                     Details : {this.state.details}
                 </Typography>
             </Grid>
+            {this.renderSettingsButton()}
             <Grid item xs={12} align="center">
                 <Button color="primary" variant="contained" to="/" component={Link}>
                     Home
@@ -68,7 +92,7 @@ export default class Project extends Component{
             </Grid>
             <Grid item xs={12} align="center">
                 <Button color="secondary" variant="contained" onClick={this.leaveButtonPressed}>
-                    Delete Project
+                    Delete this Project
                 </Button>
             </Grid>
 

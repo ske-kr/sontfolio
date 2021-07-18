@@ -12,3 +12,11 @@ class CreateProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model=project
         fields =('name','team','keyword','details')
+
+class UpdateProjectSerializer(serializers.ModelSerializer):
+    #check uniqueness of code
+    code=serializers.CharField(validators=[])
+
+    class Meta:
+        model=project
+        fields =('name','team','keyword','details','code')

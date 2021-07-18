@@ -2,7 +2,7 @@
 from django.db.models import query
 from django.shortcuts import render
 from rest_framework import generics, serializers, status
-from .serializers import ProjectSerializer,CreateProjectSerializer
+from .serializers import ProjectSerializer,CreateProjectSerializer,UpdateProjectSerializer
 from .models import project
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -51,7 +51,9 @@ class CreateView(APIView):
             if queryset.exists():
                 room = queryset[0]
                 room.team=team
-                room.save(update_fields=['team'])
+                room.keyword=keyword
+                room.details=details
+                room.save(update_fields=['team','keyword','details'])
                 ##edit more options
                 return Response(ProjectSerializer(room).data, status=status.HTTP_200_OK)
             else:
@@ -107,3 +109,33 @@ class delProject(APIView):
             delproject.delete()
             return Response({'Successfully Deleted'},status=status.HTTP_200_OK)
         return Response({'Bad Request': 'Code not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class UpdateProject(APIView):
+    serializer_class=UpdateProjectSerializer
+
+    def patch(self, request,format=None):
+        serializer=self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            name=serializer.data.get('name')
+            team=serializer.data.get('team')
+            keyword=serializer.data.get('keyword')
+            details=serializer.data.get('details')
+            code=serializer.data.get('code')
+
+            queryset = project.objects.filter(code=code)
+
+            if not queryset.exists():
+                return Response({'Invalid Code':'Project not found'},status=status.HTTP_404_NOT_FOUND)
+
+            updateproject=queryset[0]
+
+            updateproject.team=team
+            updateproject.keyword=keyword
+            updateproject.details=details
+            updateproject.save(update_fields=['team','keyword','details'])
+
+            return Response(ProjectSerializer(updateproject).data,status=status.HTTP_200_OK)
+
+        return Response({'Bad Request': "Invalid Data..."},status=status.HTTP_400_BAD_REQUEST)

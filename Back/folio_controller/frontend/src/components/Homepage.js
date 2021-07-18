@@ -14,7 +14,7 @@ export default class HomePage extends Component{
         };
 
     }
-
+    /*
     async componentDidMount(){
       fetch('/api/user-in-project').then((response)=>response.json())
       .then((data)=>{
@@ -24,7 +24,7 @@ export default class HomePage extends Component{
       });
       console.log(this.state.projectCode);
     }
-    
+    */
     clearProjectcode(){
       this.setState({
         projectCode:null,
