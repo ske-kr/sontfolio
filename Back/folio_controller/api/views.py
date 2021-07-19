@@ -113,12 +113,13 @@ class delProject(APIView):
 
 class UpdateProject(APIView):
     serializer_class=UpdateProjectSerializer
+    #serializer가 꼭 필요할까?;
 
     def patch(self, request,format=None):
         serializer=self.serializer_class(data=request.data)
 
         if serializer.is_valid():
-            name=serializer.data.get('name')
+
             team=serializer.data.get('team')
             keyword=serializer.data.get('keyword')
             details=serializer.data.get('details')
