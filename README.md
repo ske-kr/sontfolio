@@ -34,3 +34,6 @@ fetch시 Json화 시키면 작업이 좀 더 편해진다!
 캐시데이터로 인해 가끔 실시간 반영이 안되는 경우가 있다
 캐시 초기화를 위해 강력 새로고침을 활용하자
 Ctrl+Shift+R 혹은 개발자모드를 키고 새로고침 우클릭, 강력새로고침
+
+https://github.com/SamSamskies/django-webpack-heroku-example
+https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Deployment
